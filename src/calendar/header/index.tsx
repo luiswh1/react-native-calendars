@@ -300,8 +300,3 @@ const CalendarHeader = forwardRef((props: CalendarHeaderProps, ref) => {
 
 export default CalendarHeader;
 CalendarHeader.displayName = 'CalendarHeader';
-CalendarHeader.defaultProps = {
-  monthFormat: 'MMMM yyyy',
-  webAriaLevel: 1,
-  arrowsHitSlop: 20
-};
