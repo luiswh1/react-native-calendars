@@ -84,6 +84,12 @@ const EventBlock = (props: EventBlockProps) => {
                 R$ {parseFloat(event.value).toFixed(2).replace('.', ',')}
               </Text>
             ) : null}
+
+            {event.description ? (
+              <Text numberOfLines={1} style={defaultStyles.eventDetails}>
+                {event.description}
+              </Text>
+            ) : null}
           </View>
 
           {numberOfLines > 1 ? (
