@@ -52,6 +52,9 @@ export interface TimelineProps {
 
   onPress?: TimelineHoursProps['onPress'];
 
+  onLongPress?: TimelineHoursProps['onLongPress'];
+
+
   /**
    * Pass to handle creation of a new event by long press out on the timeline background
    * NOTE: If passed, the date prop will be included in the returned time string (e.g. 2017-09-06 01:30:00)
@@ -147,6 +150,7 @@ const Timeline = (props: TimelineProps) => {
     timelineLeftInset = 0,
     testID,
     onPress,
+    onLongPress,
   } = props;
 
   const pageDates = useMemo(() => {
@@ -223,6 +227,7 @@ const Timeline = (props: TimelineProps) => {
           styles={styles.current}
           format24h={format24h}
           onPress={onEventPress}
+          onLongPress={onLongPress}
           renderEvent={renderEvent}
           testID={`${testID}.event.${event.id}`}
         />
