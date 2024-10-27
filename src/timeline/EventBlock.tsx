@@ -32,13 +32,14 @@ export interface EventBlockProps {
   format24h?: boolean;
   styles: {[key: string]: ViewStyle | TextStyle};
   testID?: string;
+  onLongPress: (event: PackedEvent) => void;
 }
 
 const TEXT_LINE_HEIGHT = 17;
 const EVENT_DEFAULT_COLOR = '#add8e6';
 
 const EventBlock = (props: EventBlockProps) => {
-  const {index, event, renderEvent, onPress, format24h, styles} = props;
+  const {index, event, renderEvent, onPress, format24h, styles, onLongPress} = props;
 
   const numberOfLines = Math.floor(event.height / TEXT_LINE_HEIGHT);
   const formatTime = format24h ? 'HH:mm' : 'hh:mm A';
@@ -56,8 +57,12 @@ const EventBlock = (props: EventBlockProps) => {
     onPress(index);
   }, [index, onPress]);
 
+  const _onLongPress = useCallback(() => { 
+    onLongPress(event)
+   }, [index, onLongPress])
+
   return (
-    <TouchableOpacity testID={props.testID} activeOpacity={0.9} onPress={_onPress} style={[styles.event, eventStyle]}>
+    <TouchableOpacity testID={props.testID} activeOpacity={0.9} onPress={_onPress} style={[styles.event, eventStyle]} onLongPress={_onLongPress}>
       {renderEvent ? (
         renderEvent(event)
       ) : (
@@ -82,12 +87,6 @@ const EventBlock = (props: EventBlockProps) => {
             {event.value ? (
               <Text numberOfLines={1} style={defaultStyles.eventDetails}>
                 R$ {parseFloat(event.value).toFixed(2).replace('.', ',')}
-              </Text>
-            ) : null}
-
-            {event.description ? (
-              <Text numberOfLines={1} style={defaultStyles.eventDetails}>
-                {event.description}
               </Text>
             ) : null}
           </View>
